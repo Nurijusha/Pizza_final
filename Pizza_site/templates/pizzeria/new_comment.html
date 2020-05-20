@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ object.name }}
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-light card-info">
+    <h1>{{ object.name }}</h1>
+    <p class='information'>{{ object.description|safe }}</p>
+    <div>
+        <img class='pizzas_image' src="{{ object.image.url }}">
+    </div>
+    <p class='information'>{{ object.price|safe }}</p>
+</div>
+<div class="bg-white p-3 comment-div">
+    {% if user.is_authenticated %}
+    <div class="p-1">
+        <form action="{% url 'pizzacomments' object.id %}" method="POST" class="d-flex align-items-center">
+            {% csrf_token %}
+            <div class="textarea-div">
+                <textarea name="text" id="exampleFormControlTextarea1" rows="2" width="100%"></textarea>
+            </div>
+            <div class="button-div">
+                <button class="btn">Отправить</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+    {% if object.comments.all %}
+    <hr>
+    <div class="p-2">
+        {% for comments in object.comments.all %}
+        <div class="row align-items-center p-1">
+            <div class="comment-text">
+                <a href="{% url 'user-news' comments.user %}">{{comments.user }}: </a><span>{{ comments.text }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

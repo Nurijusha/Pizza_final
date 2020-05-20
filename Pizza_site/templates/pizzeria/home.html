@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="category-wrap">
+      <h3>Что можно найти на сайте?</h3>
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href ="{%url 'accounts:profile'%}">Мой кабинет</a></li>
+        {% endif %}
+        <li><a href="{% url 'about' %}" >О нас</a></li>
+        <li><a href="{% url 'cookTop:topCooks' %}">Топ повара</a></li>
+        <li><a href="#123">Наши пиццы</a></li>
+        <li><a href="{% url 'blog-home' %}">Блог</a></li>
+
+      </ul>
+    </div>
+    <div class="section section-top">
+        <div class="container">
+            <div class="row">
+                <div id="123" class="col-lg-12">
+                    <h1 class="text-center">
+                    Наша пицца
+                    </h1>
+                </div>
+               {% for pizza in pizzas %}
+                    <div class="col-lg-3">
+                        <div class="product-item">
+                            <div>
+                                <img src="{{ pizza.image.url }}" class="img-responsive">
+                            </div>
+
+                            <h4>{{ pizza.name }}</h4>
+                            <p>
+                                {{ pizza.description|truncatechars_html:55 }}
+                            </p>
+                            <div class="mr-3">
+                                <a class='btn btn-secondary' href="{% url 'pizza-detail' pizza.id%}">Комментарии</a>
+                            </div>
+                            <div>
+                                {{ pizza.price }} руб.
+                            </div>
+                                <form action="{% url 'cart:cart_add' pizza.id %}" method="post">
+                                    {{ cart_product_form }}
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <button type="submit" id="submit_btn" class="btn btn-success">
+                                            Добавить в корзину
+                                        </button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

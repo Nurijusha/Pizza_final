@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Топ повара
+{% endblock %}
+{% block content %}
+    <div class="section section-top">
+    <h1 class="text-center">
+        Toп повара и их пиццы
+    </h1>
+        <div class="container">
+                {% for r in rec %}
+                    <div class="d-flex card-div">
+                        <div class="col-4 post-image-div p-0">
+                            <img src="{{ r.pizza.image.url }}">
+                        </div>
+                        <div class="col-8 p-3 d-flex flex-column justify-content-between">
+                            <div class="">
+                                <h5>{{ r.title }}</h5>
+                                <p>{{r.pizza.name}}</p>
+                                <p>{{ r.body|truncatewords:30|safe }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="row">
+                                    <img class='user_image' src="{{ r.author.img.url }}">
+                                    <div class="mt-2">
+
+                                        <p><b>Автор: </b><a>{{ r.author}}</a></p>
+                                        <p><b>Автор в соц.сетях: </b><a>{{ r.author.urlfield}}</a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

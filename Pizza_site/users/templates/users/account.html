@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Мой счет{% endblock title %}
+
+{% block content %}
+
+  <section>
+    <div class="content-section">
+
+      <h3 class="single-blog-post">Вы вошли как {{ user.username }}</h3>
+        <p>ID пользователя: {{ user.id }}</p>
+        <p>Ваш email: {{ user.email }}</p>
+            <br>
+      <h3 class="single-blog-post">История заказов:</h3>
+
+      {% for order in my_orders %}
+        <strong>Номер заказа: {{ order.id }}</strong>
+          {% for info in orders_info %}
+                {% if order.id == info.id %}
+                    <p>Адрес доставки: {{ info.address }}</p>
+                    <p>Имя: {{ info.first_name }}</p>
+                    <p>Фамилия: {{ info.last_name }}</p>
+                    <p>Дата заказа: {{ info.created }}</p>
+
+
+                {% endif %}
+            {% endfor %}
+        {% for item in order_items %}
+          {% if order.id == item.order.id %}
+           <p>{{ item.quantity }} X {{ item.product.name }} по {{ item.product.price }} руб.</p>
+          {% endif %}
+        {% endfor %}
+            <br>
+      {% endfor %}
+
+
+      </div>
+  </section>
+
+{% endblock content %}

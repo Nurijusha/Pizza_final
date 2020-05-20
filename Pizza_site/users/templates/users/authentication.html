@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Авторизация на сайте
+{% endblock %}
+
+{% block content %}
+<div class="full-screen-div">
+    <div class="form-section">
+        <h2>Авторизация на сайте</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="text-right">
+                <button class="btn btn-outline-secondary" type="submit">Войти</button>
+            </div>
+        </form>
+        <hr>
+        <p class="text-center">Забыли пароль? <a href="{% url 'pass-reset' %}">Восстановить пароль</a></p>
+    </div>
+</div>
+{% endblock %}
