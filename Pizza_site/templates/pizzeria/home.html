@@ -32,10 +32,10 @@
 
                             <h4>{{ pizza.name }}</h4>
                             <p>
-                                {{ pizza.description|truncatechars_html:55 }}
+                                {{ pizza.description|truncatechars_html:30 }}
                             </p>
                             <div class="mr-3">
-                                <a class='btn btn-secondary' href="{% url 'pizza-detail' pizza.id%}">Комментарии</a>
+                                <a class='btn btn-secondary btn-xs' href="{% url 'pizza-detail' pizza.id%}">Комментарии</a>
                             </div>
                             <div>
                                 {{ pizza.price }} руб.
